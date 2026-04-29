@@ -5,7 +5,10 @@ class BaseFileService:
     """Базовый класс с общими операциями для работы с файлами"""
 
     def __init__(self, file_path):
-        self.path = file_path
+        if not isinstance(file_path, (str, os.PathLike)):
+            raise TypeError("file_path must be str or PathLike")
+        
+        self.path = os.fspath(file_path)
 
     def __str__(self):
         return f"BaseFileService (path={self.path})"
@@ -16,8 +19,17 @@ class BaseFileService:
     
     def delete(self):
         """Удаляет файл"""
-        if self.exists():
-            os.remove(self.path)
+        if not self.exists():
+            raise FileNotFoundError(f"File not found: {self.path}")
+        os.remove(self.path)
+
+    def _validate_path(self):
+        if not isinstance(self.path, (str, os.PathLike)):
+            raise TypeError("Path must be a str or path")
+        
+    def _ensure_exists(self):
+        if not self.exists():
+            raise FileNotFoundError (f"file not found: {self.path}")
 
 
 class FileService(BaseFileService):
