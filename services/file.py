@@ -13,6 +13,16 @@ class FileService(BaseFileService):
 
         with open(self.path, "r", encoding="UTF-8") as f:
             return f.read()
+        
+    def create_file(self):
+        """Создание файла"""
+        try:
+            with open(self.path, "x", encoding="UTF-8") as f:
+                f.write("")
+        except FileExistsError:
+            print("File already exists")
+
+
 
     def write_text(self, text, mode="w"):
         """Записывает текст в файл"""
