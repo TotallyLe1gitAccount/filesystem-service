@@ -24,10 +24,12 @@ class BaseFileService:
         os.remove(self.path)
 
     def _validate_path(self):
+        """Проверяет путь на правильность"""
         if not isinstance(self.path, (str, os.PathLike)):
             raise TypeError("Path must be a str or path")
         
     def _ensure_exists(self):
+        """Проверяет путь на существование"""
         if not self.exists():
             raise FileNotFoundError (f"file not found: {self.path}")
 
