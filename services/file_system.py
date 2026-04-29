@@ -7,9 +7,9 @@ import pickle
 class BaseFileService:
     """Базовый класс с общими операциями для работы с файлами"""
 
-    def __init__(self, file_path):
-        self._validate_path()  
+    def __init__(self, file_path): 
         self.path = os.fspath(file_path)
+        self._validate_path() 
 
     def __str__(self):
         return f"BaseFileService (path={self.path})"
