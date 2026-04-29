@@ -18,7 +18,7 @@ class FileService(BaseFileService):
         """Создание файла"""
         try:
             with open(self.path, "x", encoding="UTF-8") as f:
-                f.write("")
+                f.close()
         except FileExistsError:
             print("File already exists")
 
